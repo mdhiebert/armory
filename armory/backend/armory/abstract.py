@@ -5,7 +5,7 @@ from armory.backend.armory.item import Item, ItemStatus
 from armory.backend.armory.soldier import Soldier
 from armory.backend.armory.status import ArmoryStatus
 
-class Armory(ABC):
+class AbstractArmory(ABC):
 
     @abstractmethod
     def get_item(self, item_id: int) -> Item:
@@ -23,21 +23,6 @@ class Armory(ABC):
         '''
         raise NotImplementedError
 
-    @abstractmethod
-    def get_soldier(self, user_id: int) -> Soldier:
-        '''
-            Returns the solider with the specified user_id.
-
-            Throws a KeyError if the user_id does not exist.
-        '''
-        raise NotImplementedError
-
-    @abstractmethod
-    def get_soldiers(self) -> List[Soldier]:
-        '''
-            Returns a list of every soldier associated with this armory.
-        '''
-        raise NotImplementedError
 
     @abstractmethod
     def assign_item_permanently(self, item: Item, soldier: Soldier) -> bool:
@@ -86,7 +71,7 @@ class Armory(ABC):
         raise NotImplementedError
 
     @abstractmethod
-    def remove_item(self, item: Item) -> bool:
+    def remove_item(self, item_id: int) -> bool:
         '''
             Removes an item to this Armory's registry.
 
@@ -120,6 +105,22 @@ class Armory(ABC):
             Accounts for this item in this Armory's registry.
 
             Returns True if operation was successful, else False. 
+        '''
+        raise NotImplementedError
+
+    @abstractmethod
+    def get_soldier(self, user_id: int) -> Soldier:
+        '''
+            Returns the solider with the specified user_id.
+
+            Throws a KeyError if the user_id does not exist.
+        '''
+        raise NotImplementedError
+
+    @abstractmethod
+    def get_soldiers(self) -> List[Soldier]:
+        '''
+            Returns a list of every soldier associated with this armory.
         '''
         raise NotImplementedError
 

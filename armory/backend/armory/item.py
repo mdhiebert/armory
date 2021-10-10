@@ -1,4 +1,5 @@
 from enum import Enum
+from os import name
 
 class ItemStatus(Enum):
     MISSING = 0
@@ -11,6 +12,17 @@ class Item:
         self.id = item_id
         self.name = item_name
         self.serial_number = serial_number
+
+    def __eq__(self, other):
+        return type(other) == type(self) and \
+            self.id == other.id and \
+            self.name == other.name and \
+            self.serial_number == other.serial_number
+
+    def __iter__(self):
+        yield self.id
+        yield self.name
+        yield self.serial_number
 
 class M4(Item):
     def __init__(self, item_id, serial_number):
